@@ -1,0 +1,512 @@
+<!DOCTYPE>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<link rel="icon" href="/ExcelUpload/resources/img/favicon.png" type="image/png">
+    <title>Client</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="/ExcelUpload/resources/css/select2.min.css" rel="stylesheet" />
+    <link href="/ExcelUpload/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template-->
+    <link href="/ExcelUpload/resources/css/sb-admin.css" rel="stylesheet">
+    <link href="/ExcelUpload/resources/css/animate.css" rel="stylesheet">
+    <style>
+    .select2 {
+width:100%!important;
+}
+        .m-right {
+            margin-right: 8%;
+        }
+        #content-wrapper{
+        	position: relative;
+        }
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.overlay {
+  background: #ffffff;
+  color: #666666;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 5000;
+  top: 0;
+  left: 0;
+  float: left;
+  text-align: center;
+  padding-top: 25%;
+  opacity: .80;
+  display: none;
+}
+.overlay-content{
+    margin: 0 auto;
+    height: 64px;
+    width: 64px;
+    animation: rotate 0.8s infinite linear;
+    border: 5px solid firebrick;
+    border-right-color: transparent;
+    border-radius: 50%;
+}
+    </style>
+</head>
+<body>
+
+<body id="page-top">
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+        <a class="navbar-brand m-right" href="#">Bank Project</a>
+        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    
+        <!-- Navbar -->
+        <ul class="navbar-nav ml-md-auto ml-md-0">
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-circle fa-fw"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <!-- <a class="dropdown-item" href="#">Settings</a> -->
+                    <a class="dropdown-item user_id disabled" href="#"></a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#changePasswordModal">Change Password</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="sidebar navbar-nav">
+<!-- 
+            <li class="nav-item">
+                <a class="nav-link" href="clientUpload">
+                    <i class="fas fa-fw fa-upload"></i>
+                    <span>Upload</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="clientDetail">
+                    <i class="fa fa-user"></i>
+                    <span>Client</span></a>
+            </li>
+-->
+        </ul>
+
+        <div id="content-wrapper">
+	    <div class="overlay">
+	    	<div class="overlay-content"></div>
+	    	</div>
+
+            <div class="container-fluid">
+                <div class="card mb-3">
+                    <div class="card-body">
+                    	<img src="/ExcelUpload/resources/img/company_logo.png" class="img-fluid img-rounded d-block mx-auto" alt="Company Logo" width="150" height="236"> 
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="tableClientDetail">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Sr.No.</th>
+                                        <th scope="col">ClientId</th>
+                                        <th scope="col">Bank Name</th>
+                                        <th scope="col">A/C Type</th>
+                                        <th scope="col">PDF</th>
+                                        <th scope="col">Excel</th>
+                                        <th scope="col" id="thexcelUpload">Excel Upload</th>
+                                        <th scope="col">Created Time</th>
+                                        <th scope="col">Updated Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table_body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+            <!-- Sticky Footer -->
+            <!-- <footer class="sticky-footer">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright � Your Website 2019</span>
+                    </div>
+                </div>
+            </footer> -->
+
+        </div>
+        <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">�</span>
+          </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Change Password -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            	<form id='changePasswordForm' autocomplete="off">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            			<span aria-hidden="true">�</span>
+          			</button>
+                </div>
+                <div class="modal-body">
+                	<div class="row">
+                		<div class="col-md-12">
+                			<div>
+                				<fieldset>
+                					<div class="form-group">
+                						<input type="password" id="oldPassword" class="form-control" required="required" pattern="[A-Za-z0-9_$@./#&amp;+-]{4,20}" placeholder="Old Password" autofocus="">
+                					</div>
+               						<div class="form-group">
+               							<input class="form-control" placeholder="New Password" name="newPassword" required="required" pattern="[A-Za-z0-9_$@./#&amp;+-]{4,20}" type="password" id="newPassword">
+             						</div>
+              						<div class="form-group">
+              							<input class="form-control" placeholder="Re-enter New Password" required="required" pattern="[A-Za-z0-9_$@./#&amp;+-]{4,20}" name="reNewPassword" type="password" id="reNewPassword">
+									</div>
+              					</fieldset>
+              				</div>
+              			</div>
+              		</div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <input type="submit" id="btnChangePassword" value="Change Password" class="btn btn-primary">
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Client Detail Modify Data for role Backend  -->
+    <div class="modal fade" id="editClientModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<form id="frm_editDetail">
+	      			<div class="modal-header">
+	        			<h5 class="modal-title" id="editModalLabel">Modify Client</h5>
+	        			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          				<span aria-hidden="true">&times;</span>
+	        			</button>
+	      			</div>
+	      			<div class="modal-body">
+	      				<div class="form-group row">
+							<div class="col-sm-6">
+								<input type="hidden" class="form-control" id="hidden_id" value="" required>
+								<input type="hidden" class="form-control" id="hidden_pdf_path" value="">
+								<input type="hidden" class="form-control" id="hidden_excel_path" value="">
+								<input type="hidden" class="form-control" id="hidden_pdf_upload_date" value="">
+								<input type="hidden" class="form-control" id="hidden_excel_upload_date" value="">
+								<input type="hidden" class="form-control" id="hidden_userid" value="">
+								<input type="hidden" class="form-control" id="hidden_roleid" value="">
+							</div>
+						</div>
+	      				<div class="form-group row">
+							<label for="bankName" class="col-sm-3 col-form-label text-right font-weight-bold">Bank Name:</label>
+							<div class="col-sm-6">
+								<!-- <input type="text" class="form-control" id="bankName" placeholder="Bank Name" required> -->
+								<select class="form-control" id="bankName">
+									<option value='-99' selected="selected">Select Bank</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="accountType" class="col-sm-3 col-form-label text-right font-weight-bold">Account Type:</label>
+							<div class="col-sm-6">
+								<select id="accountType" class="custom-select custom-select mb-3" required>
+									<option value="-99" selected>Select Account Type</option>
+									<option value="savings">Savings</option>
+									<option value="current">Current</option>
+								</select>
+							</div>
+						</div>
+	      			</div>
+	      			<div class="modal-footer">
+	        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        			<input type="submit" id="btn_edit" class="btn btn-primary" value="Save changes">
+	      			</div>
+      			</form>
+    		</div>
+  		</div>
+	</div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/ExcelUpload/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="/ExcelUpload/resources/js/select2.min.js"></script>
+    <script src="/ExcelUpload/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/ExcelUpload/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/ExcelUpload/resources/js/sb-admin.min.js"></script>
+    <script src="/ExcelUpload/resources/js/config.js"></script>
+    <script src="/ExcelUpload/resources/js/bootstrap-notify.js"></script>
+    <script>
+    var getData = "/ExcelUpload/excel/getAllClientDetails";
+    $(document).ready(function(){
+    	if (localStorage.role!="client"){
+			$('#tableClientDetail thead tr').append( $('<th />', {text : 'Action'}));
+    	}
+    	
+    	$('#bankName').select2({
+			  placeholder: 'Select Bank',
+			  dropdownParent: $("#editClientModal")
+		});
+    	clientDetail();
+    	$(document).on("change",".custom-file-input",function(){
+    		let fl_id = this.id;
+    		if ($("#"+fl_id)[0].files[0]!=undefined){
+    			var fd = new FormData();    
+    			fd.append( 'file1',  $("#"+fl_id)[0].files[0]);
+    			fd.append( 'client_id', $(this).data("id"));
+    			fd.append( 'roleid', localStorage.id);
+    			$(".overlay").fadeIn();
+    			$.ajax({
+    				url: "/ExcelUpload/excel/uploadExcel",
+    				data: fd,
+    				type: 'POST',
+            		processData: false,
+    				contentType: false,
+            		success: function(data){
+            			var response = JSON.parse(data);
+            			if (response.reply=="Success"){
+            				clientDetail();
+            				$(".overlay").fadeOut();
+            				getNotify('success','fa fa-check-circle','Data Uploaded Successfully.');
+            			} else {
+            				$(".overlay").fadeOut();
+            				getNotify('danger','fas fa-times-circle','Data Upload Failed.');
+            			}
+            		},
+            		error: function (request, status, error) {
+	        			$(".overlay").fadeOut();
+	        			getNotify('danger','fas fa-times-circle',request.responseText);
+	        	    }
+    			})
+    		}
+    	});
+    	
+    	$("#frm_editDetail").submit(function(event){
+    		event.preventDefault();
+    		var clientInfo = {
+					client_id: $("#hidden_id").val(),
+					bank_name: $("#bankName").val(),
+					 acc_type: $("#accountType").val(),
+					 pdf_path: $("#hidden_pdf_path").val()==""?null:$("#hidden_pdf_path").val(),
+				   excel_path: $("#hidden_excel_path").val()==""?null:$("#hidden_excel_path").val(),
+			  pdf_upload_date: $("#hidden_pdf_upload_date").val()==""?null:$("#hidden_pdf_upload_date").val(),
+			excel_upload_date: $("#hidden_excel_upload_date").val()==""?null:$("#hidden_excel_upload_date").val(),
+					   userid: $("#hidden_userid").val()==""?null:$("#hidden_userid").val(),
+					   roleid: $("#hidden_roleid").val()==""?null:$("#hidden_roleid").val()
+				};
+    		$.ajax({
+				url: "/ExcelUpload/excel/modifyClientDetails",
+				type: 'POST',
+				contentType: "application/json",
+			 	data: JSON.stringify(clientInfo),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+        		success: function(data){
+        			if (data.reply=="success"){
+        				getNotify('success','fa fa-check-circle','Data Modified Successfully.');
+        				$("#frm_editDetail")[0].reset();
+        				$("#editClientModal").modal('hide');
+        				clientDetail();
+        			} else {
+        				getNotify('danger','fas fa-times-circle',data.reply);
+        			}
+        		},
+        		error: function (request, status, error) {
+        			getNotify('danger','fas fa-times-circle',request.responseText);
+        	    }
+			})
+    	});
+    });
+    
+    function clientDetail(){
+    	$(".overlay").fadeIn();
+    	$.ajax({
+			url: getData,
+			type: "GET",
+			contentType: "application/json",
+			success: function(response){
+				if (response.length>0){
+					var tableData;
+					$.each(response, function( key, value ) {
+							tableData+="<tr id='"+value.client_id+"'>"
+							tableData+="<td>"+(key+1)+"</td>"
+							tableData+="<td>"+value.client_id+"</td>"
+							tableData+="<td>"+value.bank_name+"</td>"
+							tableData+="<td>"+value.acc_type+"</td>"
+
+							if (value.pdf_path!=""){
+								var finalPath = value.pdf_path.replace('/var/www/html/','');
+								var fileName = 'http://'+window.location.hostname+'/'+finalPath;
+								tableData+="<td><a href='"+fileName+"' target='_blank'>PDF_"+value.client_id+"</a></td>"	
+							} else {
+								tableData+="<td><a href='#'>N/A</a></td>"
+							}
+							
+							if (value.excel_path!=null){
+                                                                var excelPath = value.excel_path.replace('/var/www/html/','');
+                                                                var excelName = 'http://'+window.location.hostname+'/'+excelPath;
+								tableData+="<td id='excelData_"+value.client_id+"'><a href='"+excelName+"' target='_blank'>Excel_"+value.client_id+"</a></td>"	
+							} else {
+								tableData+="<td id='excelData_"+value.client_id+"'>N/A</td>"
+							}
+							
+							if (localStorage.role=="client"){
+								$("#thexcelUpload").hide();
+							} else {
+								tableData+="<td width='20%'><div class='custom-file'><input type='file' class='custom-file-input' accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' data-id="+value.client_id+" id='excelFile_"+value.client_id+"'>"
+								tableData+="<label class='custom-file-label' for='excelFile_"+value.client_id+"'>Choose file</label>"
+								tableData+="</div></td>"
+							}
+							
+							if (value.pdf_upload_date!=null){
+								var pdf_createdTime = new Date(value.pdf_upload_date);
+								tableData+="<td>"+pdf_createdTime.getDate()+"-"+(pdf_createdTime.getMonth()+1)+"-"+pdf_createdTime.getFullYear()+" "+pdf_createdTime.getHours()+":"+pdf_createdTime.getMinutes()+"</td>"
+							} else {
+								tableData+="<td>N/A</td>"
+							}
+							if (value.excel_upload_date!=null){
+								var excel_uploadTime = new Date(value.excel_upload_date);
+								tableData+="<td>"+excel_uploadTime.getDate()+"-"+(excel_uploadTime.getMonth()+1)+"-"+excel_uploadTime.getFullYear()+" "+excel_uploadTime.getHours()+":"+excel_uploadTime.getMinutes()+"</td>"
+							} else {
+								tableData+="<td>N/A</td>"
+							}
+							
+							if (localStorage.role!="client"){
+								tableData+="<td><button type='button' data-pdf_path='"+value.pdf_path+"' data-excel_path='"+value.excel_path+"' data-pdf_upload_date='"+value.pdf_upload_date+"' data-excel_upload_date='"+value.excel_upload_date+"' data-userid='"+value.userid+"' data-roleid='"+value.roleid+"' data-account='"+value.acc_type+"' data-bank='"+value.bank_name+"' class='btn btn-info btn-sm' id='edit_"+value.client_id+"' data-toggle='modal' data-target='#editClientModal' onclick='viewClick("+value.client_id+");'><i class='far fa-edit'></i></button></td>"
+							}
+							tableData+="</tr>"
+					})
+					$("#table_body").html(tableData);
+					$(".overlay").fadeOut();
+				} else {
+					$("#table_body").html("<tr><td colspan='9' align='center' style='color:red'><strong>No Data Found</strong></td></tr>")
+					$(".overlay").fadeOut();
+				}
+			},
+			error: function (request, status, error) {
+				$(".overlay").fadeOut();
+    			getNotify('danger','fas fa-times-circle',request.responseText);
+    	    }
+	});
+    }
+    
+    function viewClick(id){
+    	$("#hidden_id").val(id);
+    	let dataId = "edit_"+id;
+    	$.ajax({
+			url: '/ExcelUpload/excel/getBankList',
+    		type: 'GET',
+    		success: function(data){
+    			if (data.length>0){
+    				var bankData = data.length;
+    				data.forEach(function(text) {
+    					var data = {
+						   sel_value: text,
+							sel_name: text
+						};
+						
+    				    var newOption = new Option(data.sel_name, data.sel_value, false, false);
+    				    $('#bankName').append(newOption)
+    				});
+    				$("#bankName").trigger('change');
+    				let bankval = $("#"+dataId).data('bank');
+    				$("#bankName").val(bankval).trigger('change')
+    			} else {
+    				getNotify('danger','fas fa-times-circle',"No Data Found");
+    			}
+    		},
+    		error: function (request, status, error) {
+    			getNotify('danger','fas fa-times-circle',request.responseText);
+    	    }
+		});
+    	let banktype = $("#"+dataId).data('account');
+    	$("#accountType").val(banktype)
+    	if ($("#"+dataId).data('pdf_path')!=""){
+    		$("#hidden_pdf_path").val($("#"+dataId).data('pdf_path'));
+    	} else {
+    		$("#hidden_pdf_path").val(null);
+    	}
+    	
+    	if ($("#"+dataId).data('excel_path')!=""){
+    		$("#hidden_excel_path").val($("#"+dataId).data('excel_path'));
+    	} else {
+    		$("#hidden_excel_path").val(null);
+    	}
+    	
+    	if ($("#"+dataId).data('pdf_upload_date')!=""){
+    		$("#hidden_pdf_upload_date").val($("#"+dataId).data('pdf_upload_date'));
+    	} else {
+    		$("#hidden_pdf_upload_date").val(null);
+    	}
+    	
+    	if ($("#"+dataId).data('excel_upload_date')!=""){
+    		$("#hidden_excel_upload_date").val($("#"+dataId).data('excel_upload_date'));
+    	} else {
+    		$("#hidden_excel_upload_date").val(null);
+    	}
+    	
+    	if ($("#"+dataId).data('userid')!=""){
+    		$("#hidden_userid").val($("#"+dataId).data('userid'));
+    	} else {
+    		$("#hidden_userid").val(null);
+    	}
+    	
+    	
+    	if ($("#"+dataId).data('roleid')!=""){
+    		$("#hidden_roleid").val($("#"+dataId).data('roleid'));
+    	} else {
+    		$("#hidden_roleid").val(null);
+    	}
+    	
+    }
+    
+    </script>
+</body>
+</html>
