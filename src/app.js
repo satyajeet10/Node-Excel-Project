@@ -4,14 +4,16 @@ require('./db/mongoose')
 const hbs = require('hbs')
 var bodyParser = require('body-parser');
 const port = process.env.PORT || 3000
-const app = express();
 const User = require('../src/models/user');
+const app = express();
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 var helmet = require('helmet')
 app.use(helmet());
 
 app.disable('x-powered-by')
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+
 
 // Define paths for Express config
 const publicDirectoryPath = path.join(__dirname, '../public')
@@ -30,14 +32,15 @@ app.get('/', (req, res) => {
     res.render('login');
 })
 
-app.get('/excel/authenticate', (req, res) => {
-    const user = new User()
-
+app.get('/excel/authenticate', async(req, res) => {
     try {
-        User.findByCredentials(req.body.email, req.body.password)
-        res.send({ user })
+        // console.log(req.query.email)
+        const user1 = await User.findByCredentials(req.query.email, req.query.password)
+        console.log(user1)
+        res.status(200).send(user1)
     } catch (e) {
-        res.status(500).send(e)
+        console.log(e)
+        res.status(400).send(e)
     }
 })
 

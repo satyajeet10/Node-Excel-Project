@@ -72,6 +72,7 @@
             		},
             		contentType: "application/json",
             		success: function(data){
+						console.log(data)
             			if (data){
             				getNotify('success','fa fa-check-circle','Login Successful.')
             				localStorage.setItem("id", data.id);
