@@ -32,14 +32,20 @@ app.get('/', (req, res) => {
     res.render('login');
 })
 
+app.get('/clientUpload', (req, res) => {
+    res.render('clientUpload');
+})
+
+app.get('/clientDetail', (req, res) => {
+    res.render('clientDetail');
+})
+
 app.get('/excel/authenticate', async(req, res) => {
     try {
         // console.log(req.query.email)
         const user1 = await User.findByCredentials(req.query.email, req.query.password)
-        console.log(user1)
         res.status(200).send(user1)
     } catch (e) {
-        console.log(e)
         res.status(400).send(e)
     }
 })

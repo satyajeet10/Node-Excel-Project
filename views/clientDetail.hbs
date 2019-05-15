@@ -7,16 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-	<link rel="icon" href="/ExcelUpload/resources/img/favicon.png" type="image/png">
+	<link rel="icon" href="/resources/img/favicon.png" type="image/png">
     <title>Client</title>
 
     <!-- Custom fonts for this template-->
-    <link href="/ExcelUpload/resources/css/select2.min.css" rel="stylesheet" />
-    <link href="/ExcelUpload/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/resources/css/select2.min.css" rel="stylesheet" />
+    <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
-    <link href="/ExcelUpload/resources/css/sb-admin.css" rel="stylesheet">
-    <link href="/ExcelUpload/resources/css/animate.css" rel="stylesheet">
+    <link href="/resources/css/sb-admin.css" rel="stylesheet">
+    <link href="/resources/css/animate.css" rel="stylesheet">
     <style>
     .select2 {
 width:100%!important;
@@ -115,7 +115,7 @@ width:100%!important;
             <div class="container-fluid">
                 <div class="card mb-3">
                     <div class="card-body">
-                    	<img src="/ExcelUpload/resources/img/company_logo.png" class="img-fluid img-rounded d-block mx-auto" alt="Company Logo" width="150" height="236"> 
+                    	<img src="/resources/img/company_logo.png" class="img-fluid img-rounded d-block mx-auto" alt="Company Logo" width="150" height="236"> 
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover" id="tableClientDetail">
                                 <thead>
@@ -126,7 +126,7 @@ width:100%!important;
                                         <th scope="col">A/C Type</th>
                                         <th scope="col">PDF</th>
                                         <th scope="col">Excel</th>
-                                        <th scope="col" id="thexcelUpload">Excel Upload</th>
+                                        <th scope="col" id="t">Excel Upload</th>
                                         <th scope="col">Created Time</th>
                                         <th scope="col">Updated Time</th>
                                     </tr>
@@ -174,7 +174,7 @@ width:100%!important;
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login">Logout</a>
+                    <a class="btn btn-primary" href="/">Logout</a>
                 </div>
             </div>
         </div>
@@ -272,19 +272,19 @@ width:100%!important;
 	</div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="/ExcelUpload/resources/vendor/jquery/jquery.min.js"></script>
-    <script src="/ExcelUpload/resources/js/select2.min.js"></script>
-    <script src="/ExcelUpload/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="/resources/js/select2.min.js"></script>
+    <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="/ExcelUpload/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="/ExcelUpload/resources/js/sb-admin.min.js"></script>
-    <script src="/ExcelUpload/resources/js/config.js"></script>
-    <script src="/ExcelUpload/resources/js/bootstrap-notify.js"></script>
+    <script src="/resources/js/sb-admin.min.js"></script>
+    <script src="/resources/js/config.js"></script>
+    <script src="/resources/js/bootstrap-notify.js"></script>
     <script>
-    var getData = "/ExcelUpload/excel/getAllClientDetails";
+    var getData = "/excel/getAllClientDetails";
     $(document).ready(function(){
     	if (localStorage.role!="client"){
 			$('#tableClientDetail thead tr').append( $('<th />', {text : 'Action'}));
@@ -304,7 +304,7 @@ width:100%!important;
     			fd.append( 'roleid', localStorage.id);
     			$(".overlay").fadeIn();
     			$.ajax({
-    				url: "/ExcelUpload/excel/uploadExcel",
+    				url: "/excel/uploadExcel",
     				data: fd,
     				type: 'POST',
             		processData: false,
@@ -342,7 +342,7 @@ width:100%!important;
 					   roleid: $("#hidden_roleid").val()==""?null:$("#hidden_roleid").val()
 				};
     		$.ajax({
-				url: "/ExcelUpload/excel/modifyClientDetails",
+				url: "/excel/modifyClientDetails",
 				type: 'POST',
 				contentType: "application/json",
 			 	data: JSON.stringify(clientInfo),
@@ -398,7 +398,7 @@ width:100%!important;
 							}
 							
 							if (localStorage.role=="client"){
-								$("#thexcelUpload").hide();
+								$("#t").hide();
 							} else {
 								tableData+="<td width='20%'><div class='custom-file'><input type='file' class='custom-file-input' accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' data-id="+value.client_id+" id='excelFile_"+value.client_id+"'>"
 								tableData+="<label class='custom-file-label' for='excelFile_"+value.client_id+"'>Choose file</label>"
@@ -441,7 +441,7 @@ width:100%!important;
     	$("#hidden_id").val(id);
     	let dataId = "edit_"+id;
     	$.ajax({
-			url: '/ExcelUpload/excel/getBankList',
+			url: '/excel/getBankList',
     		type: 'GET',
     		success: function(data){
     			if (data.length>0){
